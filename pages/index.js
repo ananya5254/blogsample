@@ -13,43 +13,52 @@ function HomePage() {
   }, [])
 
   return (
-    <div>
+    <div className="container">
       <h1 className="title">My Blog Posts</h1>
-      <ul className="post-list">
+      <div className="post-grid">
         {posts.map(post => (
-          <li key={post.id} className="post">
+          <div key={post.id} className="post">
             <h2 className="post-title">{post.title.rendered}</h2>
             <div
               className="post-content"
               dangerouslySetInnerHTML={{ __html: post.content.rendered }}
             />
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
 
       <style jsx>{`
+        .container {
+          max-width: 800px;
+          margin: 0 auto;
+          padding: 20px;
+        }
+
         .title {
           font-size: 24px;
           font-weight: bold;
           margin-bottom: 20px;
         }
 
-        .post-list {
-          list-style: none;
-          padding: 0;
+        .post-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+          grid-gap: 20px;
         }
 
         .post {
-          margin-bottom: 20px;
+          background-color: #f5f5f5;
+          padding: 20px;
+          border-radius: 4px;
         }
 
         .post-title {
           font-size: 20px;
           font-weight: bold;
+          margin-bottom: 10px;
         }
 
         .post-content {
-          margin-top: 10px;
           font-size: 16px;
         }
       `}</style>
