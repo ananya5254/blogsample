@@ -1,25 +1,60 @@
+import { useState, useEffect } from 'react'
 
-import Navbar from "../components/Navbar";
- export default function Home({data})
- {
-   return (  
-      <><h1 className="heading">The Blog </h1><div className="grid grid-cols-3 gap-5 w-full">
-       {data.map((post) => {
-         <Link href={`/post-slug`}>
-           <div className="cursor-pointer mb-10">
-             <img className="mb-5 rounded-2xl w-full h-60 object-cover" src="img-url"></img>
-             <h3 className="font-medium mb-3 text-xl">{post['title']['rendered']}</h3>
-             <div className="text-gray-600" dangerouslySetInnerHTML={{ __html: post['excerpt']['rendered'] }}></div>
-           </div>
-         </Link>;
-       })}
-     </div></>
+function HomePage() {
+  const [posts, setPosts] = useState([])
 
-    
-   )
- }
- export async function getServerSideProps () {
-  const getPosts = await fetch('http://headless.local/wp-json/wp/v2/post?_embed')
-  const data = await getPosts.json();
-  return {props: {data}}
- }
+  useEffect(() => {
+    async function fetchPosts() {
+      const res = await fetch('https://headless.local/wp-json/wp/v2/posts')
+      const data = await res.json()
+      setPosts(data)
+    }
+    fetchPosts()
+  }, [])
+
+  return (
+    <div>
+      <h1 className="title">My Blog Posts</h1>
+      <ul className="post-list">
+        {posts.map(post => (
+          <li key={post.id} className="post">
+            <h2 className="post-title">{post.title.rendered}</h2>
+            <div
+              className="post-content"
+              dangerouslySetInnerHTML={{ __html: post.content.rendered }}
+            />
+          </li>
+        ))}
+      </ul>
+
+      <style jsx>{`
+        .title {
+          font-size: 24px;
+          font-weight: bold;
+          margin-bottom: 20px;
+        }
+
+        .post-list {
+          list-style: none;
+          padding: 0;
+        }
+
+        .post {
+          margin-bottom: 20px;
+        }
+
+        .post-title {
+          font-size: 20px;
+          font-weight: bold;
+        }
+
+        .post-content {
+          margin-top: 10px;
+          font-size: 16px;
+        }
+      `}</style>
+    </div>
+  )
+}
+
+export default HomePage
