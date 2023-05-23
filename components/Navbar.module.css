@@ -1,0 +1,53 @@
+.navbar {
+    background-color: black;
+    width: 100%;
+    padding: 20px 0;
+    height: 100px;
+  }
+  
+  .navLinks {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin:0;
+  }
+  
+  .navLinks li {
+    margin: 0 15px;
+  }
+  
+  .navLinks li a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdownContent {
+    display: none;
+    position: absolute;
+    background-color: black;
+    min-width: 250px;
+    z-index: 1;
+  }
+  
+  .dropdown:hover .dropdownContent {
+    display: block;
+  }
+  .logo {
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    margin-right: auto; /* Added property */
+    margin-left: 20px;
+    margin-top: 20px;
+  }
+ 
+  
+  
+  
+  
